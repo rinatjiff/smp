@@ -1,0 +1,313 @@
+FORMAT: 1A
+HOST: http://jiff-config-db.herokuapp.com/process/api
+
+# Process
+
+
+# Setup
+
+* Fork https://bitbucket.org/Jiff_DT/jiff-navigator/fork
+
+* Work off the src-develop branch
+
+* Open terminal and type `gulp` in your work folder to monitor the changes
+
+* Open new terminal tab and type `chrome --app=http://localhost:8888/release` 
+
+* Do `Cmd` + `i` to open the inspector and resize your view window to `640x1136`
+
+
+# Central/Develop Process
+
+We are using a Central/Develop git flow process to push changes through production where :
+
+`central https://{your_bitbucket_username}@bitbucket.org/Jiff_DT/jiff-navigator.git (fetch)`
+
+`central https://{your_bitbucket_username}@bitbucket.org/Jiff_DT/jiff-navigator.git (push)`
+
+And 
+
+`origin https://rinatjiff@bitbucket.org/{your_username}/jiff-navigator.git (fetch)`
+
+`origin https://rinatjiff@bitbucket.org/{your_username}/jiff-navigator.git (push)`
+
+The steps are :
+
+* Push to your origin
+
+* Create a pull request to `central/src-develop`
+
+
+# Demo Process
+
+Here are the steps:
+
+#### Backend:
+
+* Create version
+* Create user
+* Create timelines
+* Create notifications
+
+#### Frontend:
+
+* Create skin-{brand}
+    * Include in style.less
+    * Include {user}@{brand}.com in App.js
+* Create custom vendor/program flows
+    * Run `gulp createflow --fn flow_new_vendor` where new_vendor is the new vendor/program name 
+    * Add images to `images/flow_new_vendor` where new_vendor is the new vendor/program name 
+
+
+
+## Get user events [/timelines/{?username}]
+
+Use this endpoint to get all home stream events of a specific user.
+
+### get user timelines [GET]
+
++ Parameters
+    + username (string) - user name (lowercase)
+
++ Response 200 (application/json)
+
+        [
+          {
+            "username": "leo harper",
+            "time": 2,
+            "card": "premise_health_flu_shot",
+            "initial_points": 0,
+            "final_points": 0,
+            "place": 213
+          },
+          {
+            "username": "leo harper",
+            "time": 0,
+            "card": "welcome",
+            "initial_points": 0,
+            "final_points": 0,
+            "place": 213
+          }
+        ]
+
+## Create version [/create/version/{?name,blackstatusbar,dashboard,tabs,defaulttab,menu,menu_style,logo,rewards_center,web,background_web,displayed_name,place,video_name,has_terms,has_phone,on_boarding,personal_assessment}]
+
+Use this endpoint to create a new version.
+
+### create [GET]
+
++ Parameters
+    + name (string) - version name (snake_case)
+    + blackstatusbar (boolean, optional) - statusbar type
+        + default: true
+    + dashboard (boolean, optional) - activate home stream
+        + default: false
+    + tabs (array[string]) - list of footer tabs
+    + defaulttab (string, optional) - first tab after recommendation
+    + menu (array[string]) - list of more menu items
+    + menu_style (string, optional) - "dark" or "light" style
+        + default: "light"
+    + logo (string, optional) - image name (png, jpg or svg)
+    + rewards_center(string, optional) - wip
+    + web (boolean, optional) - wip
+        + default: false
+    + background_web (string, optional) - wip
+    + displayed_name (string, optional) - version name (display friendly)
+    + place (number, optional) - order
+    + video_name (string, optional) - intro video name
+    + has_terms (boolean, optional) - disable terms screen
+    + has_phone (boolean, optional) - disable phone capabilities
+    + on_boarding (array[string]) - list of slide names
+    + personal_assessment (boolean,optional) - disable health assessment
+        + default: true
+
++ Response 200 (application/json)
+
+        [
+          {
+            "name": "test2",
+            "blackstatusbar": true,
+            "dashboard": false,
+            "tabs": null,
+            "defaulttab": null,
+            "menu": null,
+            "menu_style": "light",
+            "logo": null,
+            "rewards_center": null,
+            "web": false,
+            "background_web": null,
+            "displayed_name": null,
+            "place": 58,
+            "video_name": null,
+            "has_terms": null,
+            "has_phone": null,
+            "on_boarding": null,
+            "personal_assessment": true
+          }
+        ]
+
+
+
+
+## Update version [/update/version/{?name,blackstatusbar,dashboard,tabs,defaulttab,menu,menu_style,logo,rewards_center,web,background_web,displayed_name,place,video_name,has_terms,has_phone,on_boarding,personal_assessment}]
+
+Use this endpoint to update a version.
+
+### update [GET]
+
++ Parameters
+    + name (string) - version name (snake_case)
+    + blackstatusbar (boolean, optional) - statusbar type
+        + default: true
+    + dashboard (boolean, optional) - activate home stream
+        + default: false
+    + tabs (array[string], optional) - list of footer tabs
+    + defaulttab (string, optional) - first tab after recommendation
+    + menu (array[string], optional) - list of more menu items
+    + menu_style (string, optional) - "dark" or "light" style
+        + default: "light"
+    + logo (string, optional) - image name (png, jpg or svg)
+    + rewards_center(string, optional) - wip
+    + web (boolean, optional) - wip
+        + default: false
+    + background_web (string, optional) - wip
+    + displayed_name (string, optional) - version name (display friendly)
+    + place (number, optional) - order
+    + video_name (string, optional) - intro video name
+    + has_terms (boolean, optional) - disable terms screen
+    + has_phone (boolean, optional) - disable phone capabilities
+    + on_boarding (array[string], optional ) - list of slide names
+    + personal_assessment (boolean, optional) - disable health assessment
+        + default: true
+
+
++ Response 200 (application/json)
+
+        [
+          {
+            "name": "test",
+            "blackstatusbar": true,
+            "dashboard": false,
+            "tabs": null,
+            "defaulttab": null,
+            "menu": null,
+            "menu_style": "light",
+            "logo": null,
+            "rewards_center": null,
+            "web": false,
+            "background_web": null,
+            "displayed_name": null,
+            "place": 58,
+            "video_name": "test.mp4",
+            "has_terms": null,
+            "has_phone": null,
+            "on_boarding": null,
+            "personal_assessment": true
+          }
+        ]
+
+
+## Delete event [/delete/timeline/{?id}]
+
+Use this endpoint to delete an event by providing an event id
+
+### update [GET]
+
++ Parameters
+    + id (number) - id selector
+
++ Response 200 (application/json)
+
+        {
+          "message": "1174 was deleted"
+        }
+
+## Duplicate user [/duplicate/user/{?name,new}]
+
+Use this endpoint to duplicate a user.
+
+### duplicate [GET]
+
++ Parameters
+    + name (string) - name of the user you want to duplicate (lowercase)
+    + new (string) - new user name (lowercase)
+    
+
++ Response 200 (application/json)
+
+        {
+            "name": "ellis stevens",
+            "maxtimelines": 3,
+            "version": "datacore",
+            "dob": "1990-04-03T00:00:00.000Z",
+            "feet": 5,
+            "inch": 9,
+            "lbs": 175,
+            "zip": 94043,
+            "timeline": 0,
+            "total": 2500,
+            "sex": "m",
+            "lp": null,
+            "onboarding_questions": null,
+            "interests": null,
+            "explore_types": [
+                "search",
+                "programs",
+                "resources",
+                "list"
+            ],
+            "explore_sections": [
+                "",
+                "",
+                "bcbs_BR,delta_dental,vsp,employee_assistance",
+                "content_center,event_center,store,newsfeed"
+            ],
+            "rewards": [
+                "pw_20",
+                "hsa_100",
+                "cycling_kit",
+                "buy_nutribullet",
+                "buy_amazon",
+                "buy_rei",
+                "buy_jiff",
+                "buy_spaweek",
+                "buy_netflix",
+                "buy_platejoy",
+                "raffle_tdf",
+                "raffle_rio",
+                "raffle_yoga",
+                "charity_MOD",
+                "charity_DWB",
+                "charity_STC",
+                "charity_TIT"
+            ],
+            "hsa": false,
+            "store": [
+                "healthkit_app",
+                "fitbit_blaze",
+                "fitbit_alta",
+                "caloryguard",
+                "garmin_vivoactive",
+                "misfit_shine",
+                "fitbit_aria",
+                "withings_activite",
+                "moves_app"
+            ],
+            "credit": 40,
+            "place": 23,
+            "recommended_programs": [
+                "get_active",
+                "hello_wallet",
+                "zipongo",
+                "sleep_soundly_generic"
+            ],
+            "enrolled_programs": [
+                "quest",
+                "hra"
+            ],
+            "additional_programs": [
+                "mequilibrium"
+            ],
+            "emails": null
+        }
+  
